@@ -1,0 +1,319 @@
+* {
+	font-family: sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+/*Выравнивание по середине страницы*/
+.page-middle {
+	margin-top: 5px;
+}
+
+/*Стиль для жирных заголовков*/
+.fat-title {
+	font-weight: bold;
+}
+
+/*Текст ниже жирного заголовка*/
+span.h2-description {
+	font-size: 20px;
+}
+
+/*Стили формы*/
+.custom-form {
+	width: 350px;
+	padding: 40px;
+	background: #f59944;
+	border-radius: 15px;
+}
+
+.custom-form h4 {
+	margin-top: -20px;
+	margin-bottom: 20px;
+	color: #fff;
+	text-align: center;
+}
+
+.custom-input {
+	margin-top: 10px;
+	background: #fed3a9;
+	border: none;
+	border-radius: 50px;
+}
+
+.custom-input2 {
+	background: #fed3a9;
+	border: none;
+	border-radius: 50px;
+}
+
+.custom-btn {
+	width: 100%;
+	border-radius: 50px;
+	background: #eb7b15;
+	color: #fff;
+	margin-top: 10px;
+}
+
+.bottom-link {
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: -20px;
+	text-decoration: underline;
+}
+
+.bottom-link a {
+	color: #91571c;
+}
+
+.nav-custom {
+	box-shadow:0px 1px 10px 0px rgba(0,0,0,0.1);
+	padding: 30px;
+	background: #f8f8f8;
+}
+
+/*a.nav-link-custom-active {
+	text-align: center;
+	border-radius: 30px;
+	background: #f59944;
+	width: 150px;
+}*/
+
+.navbar-nav {
+	float: none;
+	text-align: center;
+}
+
+.top-links {
+	width: 100%;
+}
+
+.top-links a {
+	color: #000;
+	padding: 10px 20px;
+}
+
+.rounded-tr {
+	border: 1px solid #f59944;
+	color: #fff;
+	border-radius: 30px;
+}
+
+.central-links {
+	display: inline-block;
+}
+
+a.top-links-bg {
+	background: #f59944;
+	color: #fff;
+	border-radius: 30px;
+
+}
+
+.aside {
+	padding: 10px;
+}
+
+.aside a {
+	text-align: center;
+	border-radius: 30px;
+	/*background: #f59944;*/
+	border: 1px solid #f59944;
+	color: #000;
+	display: block;
+	width: 200px;
+	padding: 10px;
+}
+
+.aside-active a {
+	background: #f59944;
+	color: #fff;
+}
+
+.manage-admins {
+	margin-top: 7px;
+}
+
+.del {
+	color: #000;
+	border: 1px solid #f59944;
+	border-radius: 30px;
+	text-align: center;
+	padding: 5px;
+}
+
+/*Стили профиля*/
+.profile-block {
+	/*width: 200px;*/
+	padding: 50px;
+	background: #f59944;
+	text-align: center;
+	border-radius: 30px;
+}
+
+.profile-block img {
+	border-radius: 30px;
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+span.name {
+	color: #fff;
+}
+
+.genders input {
+	display: none;
+	width: 18px;
+}
+
+.new-radio {
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	/*background: #f59944;*/
+	border: 2px solid #fed3a9;
+}
+
+.new-radio:hover {
+	cursor: pointer;
+}
+
+.genders input:checked + .new-radio {
+	background: #f59944;
+}
+
+.genders span, .new-radio {
+	margin: 6px 10px;
+}
+
+/*Странится Все уроки*/
+.lesson-square {
+	border-radius: 20px;
+	text-align: center;
+	width: 200px;
+	height: 150px;
+	margin: 20px;
+	background: #fed3a9;
+}
+
+.lesson-square span {
+	margin-top: 60px;
+	display: inline-block;
+}
+
+.rate {
+	margin-top: 30px;
+}
+
+.rate i {
+	font-size: 20px;
+	color: #ffc009;
+}
+
+.locked {
+	float: right;
+	font-size: 20px;
+}
+
+.week {
+}
+
+.week span{
+	margin: 10px;
+	padding: 10px;
+	font-size: 24px;
+	border-radius: 100%;
+	border: 1px solid #f59944;
+}
+
+.progress-text {
+	text-align: center;
+}
+
+.progress-text b {
+	color: #f59944;
+	font-size: 36px;
+}
+
+/*Календарь*/
+.table-calendar {
+	width: 100%;
+	font-size: 10px;
+}
+
+.table-calendar span {
+	border-radius: 50%;
+	padding: 15px;
+	border: 1px solid #f59944;
+}
+
+.bg {
+	background: #f59944;
+	color: #fff;
+}
+
+.table-calendar td {
+	padding: 20px;
+}
+
+/*Урок*/
+.lesson-imgs {
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+}
+
+.lesson-imgs img {
+	/*width: 150px;*/
+	width: 100%;
+}
+
+.img-card {
+	display: flex;
+	flex-direction: column;
+	width: 300px;
+	height: 100%;
+}
+
+.mt-40 {
+	margin-top: 40px;
+}
+
+.mb-40 {
+	margin-bottom: 40px;
+}
+
+.ex {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.trans-card span {
+	padding: 10px;
+	border: 1px solid #f59944;
+	border-radius: 10px;
+}
+
+.congrats {
+	text-align: center;
+	color: #f59944;
+}
+
+.congrats-buttons {
+	display: flex;
+	justify-content: space-around;
+}
+
+.btn-cgt {
+	background: #f59944;
+	padding: 15px 50px;
+	color: #fff;
+	border-radius: 30px;
+}
+
+a.btn-cgt:hover {
+	color: #fff;
+	opacity: .75;
+	text-decoration: none;
+}
