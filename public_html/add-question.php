@@ -1,20 +1,26 @@
 <?php
 if ($_POST) {
-    $title = trim(htmlspecialchars($_POST['title']));
-    $summary = trim(htmlspecialchars($_POST['summary'])) ?: null;
-    $content = htmlspecialchars($_POST['content']) ?: null;
-    $tutor_id = $_POST['tutor_id'] ?: null;
-    $category_id = $_POST['category_id'] ?: null;
-    if (!empty($title)) {
+    $question = trim(htmlspecialchars($_POST['question']));
+    $testid = $_POST['testid'];
+    if (!empty($question)) {
         include_once("lib/RedBeanPHP5_4_2/rb.php");
         include_once("Dbsettings.php");
         include_once("model/DB.php");
-        include_once("controller/Test.php");
+        include_once("controller/Question.php");
         new DB($host, $port, $db_name, $user, $password);
-        $create = new Test();
-        $create->create($title, $summary, $content, $tutor_id, $category_id);
-        
-        header('location: lesson.php?msg=Запись успешно добавлена!');
+        $create = new Question();
+//        $create->create($question, $testid);
+        $questionid = $create->create($question, $testid);
+
+        $answer1 = trim(htmlspecialchars($_POST['answer1']));
+        $answer2 = trim(htmlspecialchars($_POST['answer2']));
+        $answer3 = trim(htmlspecialchars($_POST['answer3']));
+        $answer4 = trim(htmlspecialchars($_POST['answer4']));
+
+        $rightanswer = $_POST['rightanswer'];
+
+
+        header('location: tests.php?msg=Запись успешно добавлена!');
     }
 }
 ?>
@@ -70,8 +76,8 @@ include_once('includes/header.php');
                                    value="">
                         </div>
                         <div class="form-group">
-                            <label for="right-answer">Верный ответ</label>
-                            <select name="role" id="right-answer" class="form-control">
+                            <label for="rightanswer">Верный ответ</label>
+                            <select name="rightanswer" id="rightanswer" class="form-control">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -83,15 +89,15 @@ include_once('includes/header.php');
                         include_once("lib/RedBeanPHP5_4_2/rb.php");
                         include_once("Dbsettings.php");
                         include_once("model/DB.php");
-                        include_once("controller/Subject.php");
+                        include_once("controller/Test.php");
                         new DB($host, $port, $db_name, $user, $password);
                         ?>
                         <div class="form-group">
-                            <label for="category_id">Дисциплина (тема)</label>
-                            <select type="text" class="form-control" name="category_id"
-                                    id="category_id">
+                            <label for="testid">Tecт</label>
+                            <select type="text" class="form-control" name="testid"
+                                    id="testid">
                                 <?php
-                                $categories = new Subject();
+                                $categories = new Test();
                                 foreach ($categories->get() as $category) { ?>
                                     <option value="<?php echo $category['id']; ?>">
                                         <?php echo $category['name']; ?>

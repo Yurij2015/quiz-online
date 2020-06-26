@@ -24,8 +24,7 @@ include_once('includes/header.php');
                     include_once("Dbsettings.php");
                     include_once("model/DB.php");
                     include_once("controller/Test.php");
-                    include_once("controller/Tutor.php");
-                    include_once("controller/Subject.php");
+                    include_once("controller/Discipline.php");
                     new DB($host, $port, $db_name, $user, $password);
                     ?>
                     <table class="table table-hover">
@@ -33,7 +32,7 @@ include_once('includes/header.php');
                         <tr>
                             <th>№</th>
                             <th>Наименование</th>
-                            <th>Описание</th>
+                            <th>Статус</th>
                             <th>Дисциплина</th>
                             <th></th>
                             <th></th>
@@ -41,24 +40,34 @@ include_once('includes/header.php');
                         </thead>
                         <tbody>
                         <?php
-                        $tutor = new Tutor();
-                        $lessons = new Test();
-                        $category = new Subject();
-                        foreach ($lessons->get() as $lesson) {
-                            $id = $lesson['id'];
+                        $tests = new Test();
+                        $discipline = new Discipline();
+                        foreach ($tests->get() as $test) {
+                            switch ($test['status']) {
+                                case 1:
+                                    $value = "active";
+                                    $style = "text-primary";
+                                    break;
+                                case 0:
+                                    $value = "inactive";
+                                    $style = "text-danger";
+                                    break;
+                            }
+                            $id = $test['id'];
                             echo "<tr>
                         <td>" . $id . "</td>
-                        <td>" . $lesson['title'] . "</td>
-                        <td>" . $lesson['summary'] . "</td>
-                        <td>" . $category->getCategory($lesson['subject_id']) . "</td>
-                        <td><a href='view-lesson.php?id=$id' class='btn btn-info btn-sm'>Открыть</a></td>
-                        <td><a href='delete-lesson.php?id=$id' class='btn btn-warning btn-sm' onclick='return confirmDelete();'>Удалить</a></td>
+                        <td>" . $test['name'] . "</td>
+                        <td>" . $value . "</td>
+                        <td>" . $discipline->getDiscipline($test['disciplinesid']) . "</td>
+                        <td><a href='view-test.php?id=$id' class='btn btn-info btn-sm'>Открыть</a></td>
+                        <td><a href='delete-test.php?id=$id' class='btn btn-warning btn-sm' onclick='return confirmDelete();'>Удалить</a></td>
                       </tr>";
                         }
                         ?>
                         </tbody>
                     </table>
                     <a href="add-test.php" class="btn btn-warning">Добавить тест</a>
+                    <a href="add-question.php" class="btn btn-warning">Добавить вопрос в тест</a>
                 </div>
             </div>
         </div>

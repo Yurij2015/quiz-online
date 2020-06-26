@@ -1,0 +1,41 @@
+<?php
+
+class Answer
+{
+    function get()
+    {
+        return R::getAll('SELECT * FROM anser');
+    }
+
+    function getOne($id)
+    {
+        return R::getAll("SELECT * FROM anser WHERE id=$id");
+    }
+
+    function getAnswer($id)
+    {
+        $answers = R::load('anser', $id);
+        $answer = $answers->anser;
+        return $answer;
+    }
+
+    function update($anser, $id)
+    {
+        $ansers = R::load('anser', $id);
+        $ansers->anser = $anser;
+        return R::store($anser);
+    }
+
+    function create($anser, $questionid, $rightanswer)
+    {
+        $ansers = R::dispense('anser');
+        $ansers->anser = $anser;
+        $ansers->questionid = $questionid;
+        $ansers->rightanswer = $rightanswer;
+        $anser = R::store($ansers);
+//        return R::store($questions);
+        return $anser;
+    }
+
+
+}
