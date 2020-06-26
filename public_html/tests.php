@@ -23,7 +23,7 @@ include_once('includes/header.php');
                     include_once("lib/RedBeanPHP5_4_2/rb.php");
                     include_once("Dbsettings.php");
                     include_once("model/DB.php");
-                    include_once("controller/Lesson.php");
+                    include_once("controller/Test.php");
                     include_once("controller/Tutor.php");
                     include_once("controller/Subject.php");
                     new DB($host, $port, $db_name, $user, $password);

@@ -4,40 +4,36 @@ class Test
 {
     function get()
     {
-        return R::getAll('SELECT * FROM lesson');
+        return R::getAll('SELECT * FROM test');
     }
 
     function getOne($id)
     {
-        return R::getAll("SELECT * FROM lesson WHERE id=$id");
+        return R::getAll("SELECT * FROM test WHERE id=$id");
     }
 
-    function getEdMatInCategory($id_subject)
+    function getTestViaDiscipline($disciplinesid)
     {
-        return R::getAll("SELECT * FROM lesson WHERE subject_id=$id_subject");
+        return R::getAll("SELECT * FROM test WHERE disciplinesid=$disciplinesid");
     }
 
-    function create($title, $summary, $content, $tutor_id, $subject_id)
+    function create($name, $disciplinesid, $status)
     {
-        $lesson = R::dispense('lesson');
-        $lesson->title = $title;
-        $lesson->summary = $summary;
-        $lesson->content = $content;
-        $lesson->tutor_id = $tutor_id;
-        $lesson->subject_id = $subject_id;
-        return R::store($lesson);
+        $test = R::dispense('test');
+        $test->name = $name;
+        $test->disciplinesid = $disciplinesid;
+        $test->status = $status;
+        return R::store($test);
     }
 
 
-    function update($title, $summary, $content, $tutor_id, $id_subject, $id)
+    function update($name, $disciplinesid, $status, $id)
     {
-        $lesson = R::load('lesson', $id);
-        $lesson->title = $title;
-        $lesson->summary = $summary;
-        $lesson->content = $content;
-        $lesson->tutor_id = $tutor_id;
-        $lesson->id_subject = $id_subject;
-        return R::store($lesson);
+        $test = R::load('test', $id);
+        $test->name = $name;
+        $test->disciplinesid = $disciplinesid;
+        $test->status = $status;
+        return R::store($test);
     }
 
 }
