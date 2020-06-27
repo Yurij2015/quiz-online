@@ -29,26 +29,32 @@ include_once('../includes/header.php');
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th>Имя пользователя</th>
                             <th>Дата</th>
                             <!--<th>Содержание</th>-->
-                            <th>Дисциплина</th>
-                            <th>Тест</th>
+                            <th>Вопрос</th>
+                            <th>Ответ</th>
+                            <th>Результат</th>
                             <th>Результат</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php
                         $userstats = new Userstat();
-                        foreach ($userstats->get() as $userstat) {
+                        foreach ($userstats->getOne($_SESSION['id']) as $userstat) {
                             $id = $userstat['id'];
+                            if ($userstats->getRеsult($userstat['answer']) === 1) {
+                                $result = '<span class="text-success">Ответ верный!</span>';
+                            } else {
+                                $result = '<span class="text-danger">Ответ не верный!</span>';
+                            }
                             echo "<tr>
-                        <td>" . $userstat['username'] . "</td>
-                        <td>" . $userstat['data'] . "</td>
-                        <td>" . $userstat['lesson'] . "</td>
-                        <td>" . $userstat['rating'] . "</td>
-
+                        <td>" . $userstat['date'] . "</td>
+                        <td>" . $userstat['questionid'] . "</td>
+                        <td>" . $userstat['answer'] . "</td>
+                        <td>" . $userstats->getRеsult($userstat['answer']) . "</td>
+                        <td>" . $result . "</td>
                       </tr>";
+//                            var_dump($userstats->getRеsult($userstat['answer']));
                         }
                         ?>
                         </tbody>

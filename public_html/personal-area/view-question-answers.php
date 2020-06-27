@@ -3,6 +3,21 @@ session_start();
 $question = $_GET['question'];
 $title = "Выберите свой вариант ответа на вопрос: <span class='text-danger'>$question</span>";
 $msg = '';
+if ($_POST) {
+    $userid = $_POST['userid'];
+    $questionid = $_POST['questionid'];
+    $answer = $_POST['answer'];
+    if (!empty($answer)) {
+        include_once("../lib/RedBeanPHP5_4_2/rb.php");
+        include_once("../Dbsettings.php");
+        include_once("../model/DB.php");
+        include_once("../controller/Userstat.php");
+        new DB($host, $port, $db_name, $user, $password);
+        $create = new Userstat();
+        $create->create($userid, $questionid, $answer);
+        header('location: subjects.php?msg=Запись успешно добавлена!');
+    }
+}
 include_once('../includes/header.php');
 ?>
     <div class="banner padd mt-5">
@@ -53,18 +68,18 @@ include_once('../includes/header.php');
                     <form method="post">
                         <div class="form-group">
                             <label for="answer" hidden></label>
-                            <select id="answer" class="form-control">
+                            <select id="answer" class="form-control" name="answer">
                                 <?php
                                 $ansers = new Answer();
                                 foreach ($ansers->getAnswers($questionid) as $anser) {
                                     ?>
-                                    <option><?= $anser['anser'] ?></option>
+                                    <option value="<?= $anser['id'] ?>"><?= $anser['anser'] ?></option>
                                     <?php
                                 }
                                 ?>
                             </select>
-                            <label for="rightanswer" hidden></label>
-                            <input id="rightanswer" hidden value="<?= $anser['rightanswer'] ?>">
+                            <input id="userid" hidden name="userid" value="<?= $_SESSION['id']; ?>">
+                            <input id="questionid" hidden name="questionid" value="<?= $questionid ?>">
                         </div>
                         <input type="submit" class="btn btn-warning float-right" value="Сохранить">
                     </form>
@@ -72,7 +87,6 @@ include_once('../includes/header.php');
             </div>
             <hr class="mt-5">
             <a href="view-test-questions.php?id=<?= $testid ?>" class="btn btn-warning mt-5">Назад</a>
-
         </div>
     </div>
 <?php include_once('../includes/footer.php'); ?>

@@ -71,7 +71,7 @@
                 }
                 ?>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="../logout.php">Выйти <?php echo $_SESSION['username']; ?> <?php echo $_SESSION['id']; ?></a>
+                    <a class="nav-link text-white" href="../logout.php">Выйти <?php echo $_SESSION['username']; ?></a>
                 </li>
             </ul>
         </div>
