@@ -12,6 +12,11 @@ class Question
         return R::getAll("SELECT * FROM question WHERE id=$id");
     }
 
+    function getQuestions($testid)
+    {
+        return R::getAll("SELECT * FROM question WHERE testid=$testid");
+    }
+
     function getQuestion($id)
     {
         $questions = R::load('question', $id);
@@ -23,7 +28,7 @@ class Question
     {
         $questions = R::load('question', $id);
         $questions->question = $question;
-        return R::store($question);
+        return R::store($questions);
     }
 
     function create($question, $testid)

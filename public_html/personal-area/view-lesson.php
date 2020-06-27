@@ -33,8 +33,8 @@ include_once('../includes/header.php');
                     ?>
                     <?php
                     $id = $_GET['id'];
-                    $learnbooks = new Test();
-                    foreach ($learnbooks->getOne($id) as $learnbook) {
+                    $questions = new Test();
+                    foreach ($questions->getOne($id) as $learnbook) {
                         ?>
                         <p class="lead"><?= $learnbook['title'] ?></p>
                         <p><?= $learnbook['summary'] ?></p>

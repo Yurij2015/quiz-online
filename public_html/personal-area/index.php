@@ -76,7 +76,7 @@ include_once('../includes/header.php');
                             </tbody>
                         </table>
                     </div>
-                    <a href="userlessons.php" class="btn btn-outline-warning">Мои тесты</a>
+                    <a href="testpage.php" class="btn btn-outline-warning">Страница тестов</a>
 
                     <a href="userstat.php" class="btn btn-outline-warning">Статистика</a>
                 </div>

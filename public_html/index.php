@@ -31,7 +31,9 @@ if ($_POST) {
         } else {
             $username = $res[0]['username'];
             Session::set('username', $username);
-            header('location: lessons.php?msg=Вы авторизированы на сайте');
+            $userid = $res[0]['id'];
+            Session::set('id', $userid);
+            header('location: personal-area?msg=Вы авторизированы на сайте');
         }
     } else {
         $msg = 'Пожалуйста, заполните все поля';

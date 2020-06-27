@@ -7,11 +7,11 @@ if ($_POST) {
         include_once("Dbsettings.php");
         include_once("model/DB.php");
         include_once("controller/Question.php");
+        include_once("controller/Answer.php");
         new DB($host, $port, $db_name, $user, $password);
         $create = new Question();
 //        $create->create($question, $testid);
         $questionid = $create->create($question, $testid);
-
         $answer1 = trim(htmlspecialchars($_POST['answer1']));
         $answer2 = trim(htmlspecialchars($_POST['answer2']));
         $answer3 = trim(htmlspecialchars($_POST['answer3']));
@@ -19,6 +19,17 @@ if ($_POST) {
 
         $rightanswer = $_POST['rightanswer'];
 
+        $createanswer1 = new Answer();
+        $createanswer1->create($questionid, $answer1, $rightanswer, 1);
+
+        $createanswer2 = new Answer();
+        $createanswer2->create($questionid, $answer2, $rightanswer, 2);
+
+        $createanswer3 = new Answer();
+        $createanswer3->create($questionid, $answer3, $rightanswer, 3);
+
+        $createanswer4 = new Answer();
+        $createanswer4->create($questionid, $answer4, $rightanswer, 4);
 
         header('location: tests.php?msg=Запись успешно добавлена!');
     }
@@ -107,7 +118,7 @@ include_once('includes/header.php');
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary mb-5">Сохранить</button>
-                        <a href="lesson.php" class="btn btn-primary mb-5">Отмена</a>
+                        <a href="tests.php" class="btn btn-primary mb-5">Отмена</a>
                     </form>
                 </div>
             </div>

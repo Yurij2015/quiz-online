@@ -7,6 +7,11 @@ class Test
         return R::getAll('SELECT * FROM test');
     }
 
+    function getAcitveTests()
+    {
+        return R::getAll('SELECT * FROM test WHERE status = 1');
+    }
+
     function getOne($id)
     {
         return R::getAll("SELECT * FROM test WHERE id=$id");

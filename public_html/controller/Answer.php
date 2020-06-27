@@ -19,6 +19,11 @@ class Answer
         return $answer;
     }
 
+    function getAnswers($questionid)
+    {
+        return R::getAll("SELECT * FROM anser WHERE questionid=$questionid");
+    }
+
     function update($anser, $id)
     {
         $ansers = R::load('anser', $id);
@@ -26,12 +31,13 @@ class Answer
         return R::store($anser);
     }
 
-    function create($anser, $questionid, $rightanswer)
+    function create($questionid, $anser, $rightanswer, $ansnuminques)
     {
         $ansers = R::dispense('anser');
         $ansers->anser = $anser;
         $ansers->questionid = $questionid;
         $ansers->rightanswer = $rightanswer;
+        $ansers->ansnuminques = $ansnuminques;
         $anser = R::store($ansers);
 //        return R::store($questions);
         return $anser;
