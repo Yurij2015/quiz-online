@@ -2,7 +2,7 @@
 session_start();
 $title = "Статистика по вопросам";
 $msg = '';
-include_once('../includes/header.php');
+include_once('includes/header.php');
 ?>
     <div class="banner padd mt-5">
         <div class="container">
@@ -20,28 +20,29 @@ include_once('../includes/header.php');
             <div class="row">
                 <div class="col-md-12">
                     <?php
-                    include_once("../lib/RedBeanPHP5_4_2/rb.php");
-                    include_once("../Dbsettings.php");
-                    include_once("../model/DB.php");
-                    include_once("../controller/Userstat.php");
+                    include_once("lib/RedBeanPHP5_4_2/rb.php");
+                    include_once("Dbsettings.php");
+                    include_once("model/DB.php");
+                    include_once("controller/Userstat.php");
                     new DB($host, $port, $db_name, $user, $password);
                     ?>
                     <table class="table table-hover">
                         <thead>
                         <tr>
+                            <th>Пользователь</th>
                             <th>Тест</th>
-
                             <th>Дата</th>
                             <th>Вопрос</th>
                             <th>Ответ</th>
                             <th>Результат</th>
                             <th>Результат</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php
                         $userstats = new Userstat();
-                        foreach ($userstats->getOne($_SESSION['id']) as $userstat) {
+                        foreach ($userstats->getOneAll() as $userstat) {
                             $id = $userstat['id'];
                             if ($userstats->getRеsult($userstat['answer']) === 1) {
                                 $result = '<span class="text-success">Ответ верный!</span>';
@@ -49,6 +50,7 @@ include_once('../includes/header.php');
                                 $result = '<span class="text-danger">Ответ не верный!</span>';
                             }
                             echo "<tr>
+                        <td>" . $userstats->getUsername($userstat['userid']) . "</td>
                         <td>" . $userstat['name'] . "</td>
                         <td>" . $userstat['date'] . "</td>
                         <td>" . $userstat['question'] . "</td>
@@ -66,4 +68,4 @@ include_once('../includes/header.php');
             </div>
         </div>
     </div><!-- / Inner Page Content End -->
-<?php include_once('../includes/footer.php'); ?>
+<?php include_once('includes/footer.php'); ?>

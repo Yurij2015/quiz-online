@@ -30,10 +30,10 @@ include_once('includes/header.php');
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th>№</th>
                             <th>Наименование</th>
                             <th>Статус</th>
                             <th>Дисциплина</th>
+                            <th>Иерархия</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -55,12 +55,12 @@ include_once('includes/header.php');
                             }
                             $id = $test['id'];
                             echo "<tr>
-                        <td>" . $id . "</td>
                         <td>" . $test['name'] . "</td>
                         <td>" . $value . "</td>
                         <td>" . $discipline->getDiscipline($test['disciplinesid']) . "</td>
+                        <td>" . $tests->getParent($test['parent']) . "</td>
                         <td><a href='view-test-questions.php?id=$id' class='btn btn-info btn-sm'>Открыть</a></td>
-                        <td><a href='delete-test.php?id=$id' class='btn btn-warning btn-sm' onclick='return confirmDelete();'>Удалить</a></td>
+                        <!--<td><a href='delete-test.php?id=$id' class='btn btn-warning btn-sm' onclick='return confirmDelete();'>Удалить</a></td>-->
                       </tr>";
                         }
                         ?>

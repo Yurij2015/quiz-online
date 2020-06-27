@@ -28,6 +28,8 @@ if ($_POST) {
         } else {
             $username = $res[0]['username'];
             Session::set('username', $username);
+            $userid = $res[0]['id'];
+            Session::set('id', $userid);
             header('location: lessons.php?msg=Вы авторизированы на сайте');
         }
     } else {

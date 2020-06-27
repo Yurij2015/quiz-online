@@ -25,15 +25,18 @@ include_once('../includes/header.php');
                     include_once("../model/DB.php");
                     include_once("../controller/Test.php");
                     include_once("../controller/Discipline.php");
+                    include_once("../controller/Userstat.php");
                     new DB($host, $port, $db_name, $user, $password);
                     ?>
+                    <h4>Все тесты</h4>
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th>№</th>
                             <th>Наименование</th>
                             <th>Статус</th>
                             <th>Дисциплина</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -57,12 +60,59 @@ include_once('../includes/header.php');
                         <td>" . $testname . "</td>
                         <td>" . $value . "</td>
                         <td>" . $discipline->getDiscipline($test['disciplinesid']) . "</td>
+
                         <td><a href='view-test-questions.php?id=$id&testname=$testname' class='btn btn-info btn-sm'>Открыть тест</a></td>
                       </tr>";
                         }
                         ?>
                         </tbody>
                     </table>
+                    <h4>Тесты в процессе прохождения</h4>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Тест</th>
+                            <th>Статус</th>
+                            <th>Дисциплина</th>
+                            <th>Текущий рейтинг</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $userstats = new Userstat();
+                        $discipline = new Discipline();
+                        foreach ($userstats->getStatistic($_SESSION['id']) as $userstat) {
+                            switch ($userstat['status']) {
+                                case 1:
+                                    $value = "active";
+                                    $style = "text-primary";
+                                    break;
+                                case 0:
+                                    $value = "inactive";
+                                    $style = "text-danger";
+                                    break;
+                            }
+                            $id = $userstat['id'];
+                            $testid = $userstat['testid'];
+                            $testname = $userstat['name'];
+                            echo "<tr>
+                        <td>" . $userstat['name'] . "</td>
+                        <td>" . $value . "</td>
+
+                        <td>" . $discipline->getDiscipline($userstat['disciplinesid']) . "</td>
+
+                        <td>" . $userstat['result'] . "</td>
+                        <td><a href='view-test-questions.php?id=$testid&testname=$testname' class='btn btn-info btn-sm'>Открыть тест</a></td>
+
+
+                      </tr>";
+//                            var_dump($userstats->getRеsult($userstat['answer']));
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
         </div>

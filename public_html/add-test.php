@@ -3,6 +3,7 @@ if ($_POST) {
     $name = trim(htmlspecialchars($_POST['name']));
     $disciplinesid = trim(htmlspecialchars($_POST['disciplinesid']));
     $status = htmlspecialchars($_POST['status']);
+    $parent = $_POST['parent'];
     if (!empty($name)) {
         include_once("lib/RedBeanPHP5_4_2/rb.php");
         include_once("Dbsettings.php");
@@ -10,7 +11,7 @@ if ($_POST) {
         include_once("controller/Test.php");
         new DB($host, $port, $db_name, $user, $password);
         $create = new Test();
-        $create->create($name, $disciplinesid, $status);
+        $create->create($name, $disciplinesid, $status, $parent);
         header('location: tests.php?msg=Запись успешно добавлена!');
     }
 }
@@ -47,6 +48,7 @@ include_once('includes/header.php');
                         include_once("Dbsettings.php");
                         include_once("model/DB.php");
                         include_once("controller/Discipline.php");
+                        include_once("controller/Test.php");
                         new DB($host, $port, $db_name, $user, $password);
                         ?>
                         <div class="form-group">
@@ -62,6 +64,21 @@ include_once('includes/header.php');
                                 <?php } ?>
                             </select>
                         </div>
+
+                        <div class="form-group">
+                            <label for="parent">Иерархия</label>
+                            <select type="text" class="form-control" name="parent"
+                                    id="parent">
+                                <?php
+                                $tests = new Test();
+                                foreach ($tests->get() as $test) { ?>
+                                    <option value="<?php echo $test['id']; ?>">
+                                        <?php echo $test['name']; ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+
                         <div class="form-group">
                             <label for="category_id">Статус</label>
                             <select type="text" class="form-control" name="status"

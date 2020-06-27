@@ -9,7 +9,7 @@
         if (isset($title)) {
             echo $title;
         } else {
-            echo "Учебные курсы";
+            echo "Система тестирования";
         }
         ?>
     </title>
@@ -57,6 +57,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="../personal-area/userstat.php">Статистика</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="../users.php">Пользователи</a>
                 </li>
                 <?php
                 if (!isset($_SESSION['username'])) {

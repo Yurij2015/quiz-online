@@ -6,7 +6,6 @@ include_once('../includes/header.php');
 ?>
     <div class="banner padd mt-5">
         <div class="container">
-            <img class="img-responsive" src="img/crown-white.png" alt=""/>
             <h2 class="white"><?= $title ?></h2>
             <ol class="breadcrumb">
                 <li class="mr-1"><a href="index.php">Главная</a></li>

@@ -35,7 +35,6 @@ include_once('includes/header.php');
                             <th>Ответ</th>
                             <th>Номер в списке ответов</th>
                             <th>Правильный вариант ответа</th>
-                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -53,8 +52,8 @@ include_once('includes/header.php');
                             <td><?= $anser['anser'] ?></td>
                             <td><?= $anser['ansnuminques'] ?></td>
                             <td><?= $anser['rightanswer'] ?></td>
-                            <td><a href='view-test-questions.php?id=<?= $questionid ?>'
-                                   class='btn btn-info btn-sm'>Открыть</a></td>
+                            <!--<td><a href='view-test-questions.php?id=<?= $questionid ?>'
+                                   class='btn btn-info btn-sm'>Открыть</a></td>-->
                             <?php
                             }
                             ?>

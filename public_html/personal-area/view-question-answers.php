@@ -1,5 +1,6 @@
 <?php
 session_start();
+$testid = $_GET['testid'];
 $question = $_GET['question'];
 $title = "Выберите свой вариант ответа на вопрос: <span class='text-danger'>$question</span>";
 $msg = '';
@@ -14,8 +15,10 @@ if ($_POST) {
         include_once("../controller/Userstat.php");
         new DB($host, $port, $db_name, $user, $password);
         $create = new Userstat();
-        $create->create($userid, $questionid, $answer);
-        header('location: subjects.php?msg=Запись успешно добавлена!');
+        $id = $create->create($userid, $questionid, $answer);
+        $update = new Userstat();
+        $update->updateResult($id, $answer);
+        header('location: view-test-questions.php?id=' . $testid);
     }
 }
 include_once('../includes/header.php');
@@ -42,7 +45,6 @@ include_once('../includes/header.php');
                     include_once("../controller/Answer.php");
                     new DB($host, $port, $db_name, $user, $password);
                     $questionid = $_GET['idquestion'];
-                    $testid = $_GET['testid'];
                     ?>
                     <table class="table table-hover table-bordered mb-5">
                         <thead>

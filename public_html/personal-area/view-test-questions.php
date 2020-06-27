@@ -26,6 +26,8 @@ include_once('../includes/header.php');
                     include_once("../model/DB.php");
                     include_once("../controller/Test.php");
                     include_once("../controller/Question.php");
+                    include_once("../controller/Userstat.php");
+
                     new DB($host, $port, $db_name, $user, $password);
                     $testid = $_GET['id'];
                     ?>
@@ -33,6 +35,8 @@ include_once('../includes/header.php');
                         <thead>
                         <tr>
                             <th>Вопрос</th>
+                            <th></th>
+                            <th></th>
                             <th></th>
                         </tr>
                         </thead>
@@ -43,12 +47,28 @@ include_once('../includes/header.php');
                         ?>
                         <tr>
                             <td><?= $question['question'] ?></td>
+                            <?php $userstats = new Userstat();
+                            $userid = $_SESSION['id'];
+                            ?>
+                            <td><?php //$userstats->accessToQuestion($userid, $question['id']); ?>
+                                <?php
+                                $alredyanswered = $userstats->accessToQuestion($userid, $question['id']);
+                                if (isset($alredyanswered)) {
+                                    $style = "disabled";
+                                    $text = "Вы уже отвечали на этот вопрос";
+                                } else {
+                                    $style = "";
+                                    $text = "";
+                                }
 
+                                ?></td>
                             <td>
-                                <a href='view-question-answers.php?idquestion=<?= $question['id'] ?>&question=<?= $question['question'] ?>&testid=<?= $testid ?>' class='btn btn-info btn-sm'>Выбрать ответы</a>
+                                <a href='view-question-answers.php?idquestion=<?= $question['id'] ?>&question=<?= $question['question'] ?>&testid=<?= $testid ?>'
+                                   class='btn btn-info btn-sm <?= $style ?>'>Выбрать ответ</a>
                             </td>
-
-
+                            <td>
+                                <?= $text ?>
+                            </td>
                             <?php
                             }
                             ?>
@@ -58,7 +78,7 @@ include_once('../includes/header.php');
                 </div>
             </div>
             <a href="testpage.php?id=<?= $testid ?>" class="btn btn-warning">Назад</a>
-            <a href="testpage.php?id=<?= $testid ?>" class="btn btn-warning">Пройти тест</a>
+<!--            <a href="testpage.php?id=--><?//= $testid ?><!--" class="btn btn-warning">Пройти тест</a>-->
 
         </div>
     </div>

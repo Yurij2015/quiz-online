@@ -17,17 +17,25 @@ class Test
         return R::getAll("SELECT * FROM test WHERE id=$id");
     }
 
+    function getParent($id)
+    {
+        $test = R::load('test', $id);
+        $parent = $test->name;
+        return $parent;
+    }
+
     function getTestViaDiscipline($disciplinesid)
     {
         return R::getAll("SELECT * FROM test WHERE disciplinesid=$disciplinesid");
     }
 
-    function create($name, $disciplinesid, $status)
+    function create($name, $disciplinesid, $status, $parent)
     {
         $test = R::dispense('test');
         $test->name = $name;
         $test->disciplinesid = $disciplinesid;
         $test->status = $status;
+        $test->parent = $parent;
         return R::store($test);
     }
 

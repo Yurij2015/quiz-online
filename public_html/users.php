@@ -1,66 +1,86 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title>Пользователи</title>
-		<link rel="stylesheet" href="css/bootstrap.css">
-		<link rel="stylesheet" href="css/main.css">
-	</head>
-	<body>
-		<!-- Верхняя панель -->
-		<nav class="nav navbar-nav nav-custom">
-			<div class="container">			
-				<div class="" style="width:100%">
-					<b class="center-block">Пользователи</b>
-					<a href="#" class="float-right" style="color: #000">Выйти</a>
-				</div>
-			</div>
-		</nav>
-		
-		<div class="container mt-40">
-			<div class="row">
-				<div class="col-md-4">
-					<div class="aside">
-						<a href="#">Мой профиль</a>
-					</div>
-					<div class="aside">
-						<a href="#">Администраторы</a>
-					</div>
-					<div class="aside aside-active">
-						<a href="#">Пользователи</a>
-					</div>
-					<div class="aside">
-						<a href="#">Уроки</a>
-					</div>
-				</div>
-				<div class="col-md-6">
-				<h5 class="fat-title" style="margin-top:20px">Все администратора</h5>				
-				  <div class="form-group row" style="margin-top: 40px;">
-				    <label class="col-sm-4 col-form-label">1. Иванов Андрей</label>
-				    <div class="col-sm-7 manage-admins">
-				      <a href="#" class="del">Удалить</a>
-				    </div>
-				  </div>
-				  <div class="form-group row">
-				    <label class="col-sm-4 col-form-label">2. Сергеев Алексей</label>
-				    <div class="col-sm-7 manage-admins">
-				      <a href="#" class="del">Удалить</a>
-				    </div>
-				  </div>
-				  <div class="form-group row">
-				    <label class="col-sm-4 col-form-label">3. Молчанов Артем</label>
-				    <div class="col-sm-7 manage-admins">
-				      <a href="#" class="del">Удалить</a>
-				    </div>
-				  </div>
-				</div>
-			</div>
-		</div>
+<?php
+session_start();
+$title = "Личный кабинет";
+$msg = '';
+include_once('includes/header.php');
+?>
+    <div class="banner padd">
+        <div class="container">
+            <img class="img-responsive" src="" alt=""/>
+            <h2 class="white"><?= $title ?></h2>
+            <ol class="breadcrumb">
+                <li class="mr-1"><a href="index.php">Главная</a></li>
+                <li class="active"><?= $title ?></li>
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="inner-page padd">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <?php
+                        include_once("lib/RedBeanPHP5_4_2/rb.php");
+                        include_once("Dbsettings.php");
+                        include_once("model/DB.php");
+                        include_once("controller/User.php");
+                        new DB($host, $port, $db_name, $user, $password);
+                        ?>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Логин</th>
+                                <th>Имя пользователя</th>
+                                <th>Фамилия пользователя</th>
+                                <th>Электронная почта</th>
+                                <th>Роль</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            $users = new User();
+                            $username = $_SESSION['username'];
+                            foreach ($users->get() as $user) {
+                                $id = $user['id']; ?>
+                                <tr>
+                                    <td><?= $id ?></td>
+                                    <td><?= $user['username'] ?></td>
+                                    <td><?= $user['first_name'] ?></td>
+                                    <td><?= $user['last_name'] ?></td>
+                                    <td><?= $user['email'] ?></td>
+                                    <td>
+                                        <?php
+                                        switch ($user['is_staff']) {
+                                            case 1:
+                                                echo "Admin";
+                                                break;
+                                            case 2:
+                                                echo "Tutor";
+                                                break;
+                                            case 3:
+                                                echo "Student";
+                                                break;
+                                        }
+                                        ?>
+                                    </td>
+                                    <td><a href='edit-user.php?id=<?= $id ?>'
+                                           class='btn btn-info btn-sm float-right mr-1'>Редактировать</a>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a href="testpage.php" class="btn btn-outline-warning">Страница тестов</a>
 
-
-		<!-- Подключение скриптов -->
-		<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-		<script src="js/bootstrap.js"></script>
-		<script src="js/main.js"></script>
-	</body>
-</html>
+                    <a href="userstat.php" class="btn btn-outline-warning">Статистика</a>
+                </div>
+            </div>
+        </div>
+    </div><!-- / Inner Page Content End -->
+<?php include_once('includes/footer.php'); ?>

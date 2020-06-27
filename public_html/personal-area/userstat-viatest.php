@@ -1,12 +1,11 @@
 <?php
 session_start();
-$title = "Статистика по вопросам";
+$title = "Статистика по тестам";
 $msg = '';
 include_once('../includes/header.php');
 ?>
     <div class="banner padd mt-5">
         <div class="container">
-            <img class="img-responsive" src="img/crown-white.png" alt=""/>
             <h2 class="white"><?= $title ?></h2>
             <ol class="breadcrumb">
                 <li class="mr-1"><a href="index.php">Главная</a></li>
@@ -30,38 +29,26 @@ include_once('../includes/header.php');
                         <thead>
                         <tr>
                             <th>Тест</th>
-
-                            <th>Дата</th>
-                            <th>Вопрос</th>
-                            <th>Ответ</th>
-                            <th>Результат</th>
-                            <th>Результат</th>
+                            <th>Количество баллов</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php
                         $userstats = new Userstat();
-                        foreach ($userstats->getOne($_SESSION['id']) as $userstat) {
+                        foreach ($userstats->getStatistic($_SESSION['id']) as $userstat) {
                             $id = $userstat['id'];
-                            if ($userstats->getRеsult($userstat['answer']) === 1) {
-                                $result = '<span class="text-success">Ответ верный!</span>';
-                            } else {
-                                $result = '<span class="text-danger">Ответ не верный!</span>';
-                            }
+
                             echo "<tr>
                         <td>" . $userstat['name'] . "</td>
-                        <td>" . $userstat['date'] . "</td>
-                        <td>" . $userstat['question'] . "</td>
-                        <td>" . $userstat['anser'] . "</td>
-                        <td>" . $userstats->getRеsult($userstat['answer']) . "</td>
-                        <td>" . $result . "</td>
+                        <td>" . $userstat['result'] . "</td>
+
                       </tr>";
 //                            var_dump($userstats->getRеsult($userstat['answer']));
                         }
                         ?>
                         </tbody>
                     </table>
-                    <a href="userstat-viatest.php" class="btn btn-warning">Статистика по тестам</a>
+                    <a href="userstat.php" class="btn btn-warning">Статистика по вопросам</a>
                 </div>
             </div>
         </div>
